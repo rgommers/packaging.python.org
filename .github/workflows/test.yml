@@ -12,6 +12,7 @@ on:
     - reopened  # default
     - ready_for_review  # used in PRs created from GitHub Actions workflows
   workflow_call:
+  workflow_dispatch:  # Temporary: exercise daily-style monitoring on a fork.
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
@@ -99,7 +100,7 @@ jobs:
       - name: Upload full linkcheck reports
         if: >-
           ${{ always() && matrix.noxenv == 'linkcheck' &&
-            (github.event_name == 'schedule' || (github.event_name == 'push' &&
+            (contains(fromJSON('["schedule", "workflow_dispatch"]'), github.event_name) || (github.event_name == 'push' &&
               github.ref_name == github.event.repository.default_branch)) }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
@@ -112,7 +113,7 @@ jobs:
       - name: Summarize full linkcheck
         if: >-
           ${{ always() && matrix.noxenv == 'linkcheck' &&
-            (github.event_name == 'schedule' || (github.event_name == 'push' &&
+            (contains(fromJSON('["schedule", "workflow_dispatch"]'), github.event_name) || (github.event_name == 'push' &&
               github.ref_name == github.event.repository.default_branch)) }}
         run: >-
           python scripts/linkcheck.py summarize --report build/output.json
