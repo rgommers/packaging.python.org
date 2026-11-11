@@ -172,6 +172,8 @@ Reports are written to ``build/output.txt`` and ``build/output.json``.
 
 Temporary fork CI fixture: https://example.invalid/existing-broken-link.
 
+New broken URL for the PR check: https://example.invalid/new-broken-link.
+
 In CI, pull requests and merge queues check external URLs that are absent from
 the base revision's linkcheck report. New paths and fragments count as new URLs.
 The base report is cached, or generated on demand if the cache is missing.
