@@ -170,6 +170,8 @@ To check links locally, run:
 This checks all links, except those explicitly excluded in ``source/conf.py``.
 Reports are written to ``build/output.txt`` and ``build/output.json``.
 
+Temporary fork CI fixture: https://example.invalid/existing-broken-link.
+
 In CI, pull requests and merge queues check external URLs that are absent from
 the base revision's linkcheck report. New paths and fragments count as new URLs.
 The base report is cached, or generated on demand if the cache is missing.
